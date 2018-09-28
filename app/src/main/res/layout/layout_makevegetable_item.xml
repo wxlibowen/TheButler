@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <TextView
+        android:id="@+id/tv_mv_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:text="标题" />
+
+
+    <TextView
+        android:id="@+id/tv_mv_desc"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:text="简介" />
+
+    <TextView
+        android:id="@+id/tv_mv_shicai"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="食材" />
+
+    <TextView
+        android:id="@+id/tv_mv_tiaoliao"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="调料" />
+    <TextView
+        android:id="@+id/tv_step"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="步骤"/>
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/im_step"/>
+    <TextView
+        android:text="详情"
+        android:id="@+id/tv_step_detail"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+</LinearLayout>

@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@drawable/user_frgament_bg">
+
+    <EditText
+        android:id="@+id/et_make_text"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="@string/want_eat_click" />
+    <EditText
+        android:id="@+id/make_show_number"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="请输入想要几种做法"/>
+    <Button
+        android:background="#00FF00"
+        android:text="@string/search_eat"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/btn_start"/>
+    <ListView
+        android:scrollbars="none"
+        android:id="@+id/lv_makevegetable"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+</LinearLayout>

@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+<!--单选模式-->
+    <group android:checkableBehavior="single">
+    <item
+        android:id="@+id/voice_switch"
+        android:icon="@drawable/girl"
+        android:title="美女相册" />
+    <item
+        android:id="@+id/version"
+        android:icon="@drawable/version"
+        android:title="版本检测" />
+    <item
+        android:id="@+id/location"
+        android:icon="@drawable/location"
+        android:title="我的位置" />
+</group>
+    <group android:checkableBehavior="single">
+        <item
+            android:id="@+id/scan"
+            android:title="扫一扫"
+            android:icon="@drawable/scan"/>
+        <item
+            android:id="@+id/code"
+            android:title="二维码分享"
+            android:icon="@drawable/code"/>
+        <item
+            android:id="@+id/about"
+            android:icon="@drawable/about"
+            android:title="关于软件" />
+    </group>
+
+
+</menu>
