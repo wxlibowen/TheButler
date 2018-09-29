@@ -10,7 +10,8 @@ import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
-import android.os.Environment;
+import android.os.Handler;
+import android.os.Message;
 import android.provider.MediaStore;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -18,22 +19,17 @@ import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.content.FileProvider;
-import android.text.TextUtils;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.EditText;
-import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.administrator.my_first_demo.MainActivity;
 import com.example.administrator.my_first_demo.R;
-import com.example.administrator.my_first_demo.application.BaseApplication;
 import com.example.administrator.my_first_demo.entity.MyUser;
 import com.example.administrator.my_first_demo.ui.CourierActivity;
 import com.example.administrator.my_first_demo.ui.EditUserInformation;
@@ -45,7 +41,6 @@ import com.example.administrator.my_first_demo.utils.L;
 import com.example.administrator.my_first_demo.utils.ShareUtil;
 import com.example.administrator.my_first_demo.utils.UtilTools;
 import com.example.administrator.my_first_demo.view.CustomDialog;
-import com.mob.commons.clt.FBManager;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -54,11 +49,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import cn.bmob.v3.BmobUser;
-import cn.bmob.v3.exception.BmobException;
-import cn.bmob.v3.listener.UpdateListener;
 import de.hdodenhof.circleimageview.CircleImageView;
-
-import static com.kymjs.rxvolley.toolbox.FileUtils.getExternalCacheDir;
 
 /*
  *项目名：com.example.administrator.my_first_demo.fragment
@@ -90,13 +81,24 @@ public class UserFragment extends Fragment implements View.OnClickListener {
     private Switch voice_turn;
 
 
-
-
     //相机拍摄取图相关
     public static final int TAKE_PHOTO = 1;
     public final String PHOTO_NAME = "output_image.jpg";
     private Uri imageUri;
-    private  File outputImage;
+    private File outputImage;
+    private Bitmap bitmap;//用户头像
+    private Handler handler = new Handler() {
+        @Override
+        public void handleMessage(Message msg) {
+            super.handleMessage(msg);
+            switch (msg.what) {
+                case 1:
+                    CallbackManager.doCallback();
+                    break;
+            }
+
+        }
+    };
 
 
     @Nullable
@@ -104,7 +106,6 @@ public class UserFragment extends Fragment implements View.OnClickListener {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_user, null);
         findView(view);
-
         return view;
     }
 
@@ -238,6 +239,7 @@ public class UserFragment extends Fragment implements View.OnClickListener {
     //相册
     private void toPicture() {
         Intent intent = new Intent(Intent.ACTION_PICK);
+//        Intent intent = new Intent(Intent.ACTION_GET_CONTENT); //第一行代码
         intent.setType("image/*");
         startActivityForResult(intent, IMAGE_REQUEST_CODE);
         dialog.dismiss();
@@ -245,34 +247,24 @@ public class UserFragment extends Fragment implements View.OnClickListener {
 
     //相机
     private void toCamera() {
-//        Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-//        //判断内存卡是否可用，可用的话就进行储存
-//        intent.putExtra(MediaStore.EXTRA_OUTPUT,
-//                Uri.fromFile(new File(Environment.getExternalStorageDirectory(), PHOTO_IMAGE_FILE_NAME)));
-//        startActivityForResult(intent, CAMERA_REQUEST_CODE);
         outputImage = new File(getContext().getExternalCacheDir(), PHOTO_NAME);
         try {
-            if (outputImage.exists()) outputImage.delete();
+            if (outputImage.exists()) {
+                outputImage.delete();
+            }
             outputImage.createNewFile();
         } catch (IOException e) {
             e.printStackTrace();
         }
-        if (Build.VERSION.SDK_INT>=24){
-            imageUri=FileProvider.getUriForFile(getContext(),"com.example.administrator.fileporvider",outputImage);
+        if (Build.VERSION.SDK_INT >= 24) {
+            imageUri = FileProvider.getUriForFile(getContext(), "com.example.administrator.provider", outputImage);
 
-        }else {
-            imageUri=Uri.fromFile(outputImage);
+        } else {
+            imageUri = Uri.fromFile(outputImage);
         }
-        Intent intent=new Intent("android.media.action.IMAGE_CAPTURE");
-        intent.putExtra(MediaStore.EXTRA_OUTPUT,imageUri);
-        startActivityForResult(intent,CAMERA_REQUEST_CODE);
-
-
-
-
-
-
-
+        Intent intent = new Intent("android.media.action.IMAGE_CAPTURE");
+        intent.putExtra(MediaStore.EXTRA_OUTPUT, imageUri);
+        startActivityForResult(intent, CAMERA_REQUEST_CODE);
         dialog.dismiss();
     }
 
@@ -284,99 +276,73 @@ public class UserFragment extends Fragment implements View.OnClickListener {
                 case IMAGE_REQUEST_CODE:
                     if (data != null) {
                         startPhotoZoom(data.getData());
+//                        handlerImage(data);
                     }
-
                     break;
                 //相机返回数据
                 case CAMERA_REQUEST_CODE:
-////                    tempFile = new File(Environment.getExternalStorageDirectory(), PHOTO_IMAGE_FILE_NAME);
-//                    startPhotoZoom(Uri.fromFile(outputImage));
-                    try {
-                        Bitmap bitmap = BitmapFactory.decodeStream(getContext().getContentResolver().openInputStream(imageUri));
-                        profile_image.setImageBitmap(bitmap);
-                        UtilTools.putImageToShare(getContext(),profile_image);
-                        CallbackManager.doCallback();
-//                        startPhotoZoom(imageUri);
-//                        startPhotoZoom(Uri.fromFile(outputImage));
-                    } catch (FileNotFoundException e) {
-                        e.printStackTrace();
-                    }
-
-
-
+                    startPhotoZoom(imageUri);
                     break;
+                //裁剪后的返回值
                 case RESULT_REQUEST_CODE:
-                    //有可能点击舍弃
-                    if (data != null) {
-                        //拿到图片设置
-                        setImageToView(data);
-                        //既然已经设置图片，原先的应该删除
-                        if (tempFile != null) {
-                            tempFile.delete();
-                        }
-                    }
+                    setImageToView();
                     break;
             }
         }
     }
 
-    private Uri uritempFile;
 
-    //裁剪图片
+    //裁剪
     private void startPhotoZoom(Uri uri) {
-        if (uri == null) {
-            L.i("uri==null");
-            return;
+        File CropPhoto = new File(getContext().getExternalCacheDir(), "Crop.jpg");//这个是创建一个截取后的图片路径和名称。
+        try {
+            if (CropPhoto.exists()) {
+                CropPhoto.delete();
+            }
+            CropPhoto.createNewFile();
+        } catch (IOException e) {
+            e.printStackTrace();
         }
+        imageUri = Uri.fromFile(CropPhoto);
+        L.i("LBW uri:" + uri);
+        L.i("LBW imageUri:" + imageUri);
         Intent intent = new Intent("com.android.camera.action.CROP");
-        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         intent.setDataAndType(uri, "image/*");
-        //设置裁剪
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+            intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION); //添加这一句表示对目标应用临时授权该Uri所代表的文件
+        }
         intent.putExtra("crop", "true");
-        //裁剪宽高
+        intent.putExtra("scale", true);
         intent.putExtra("aspectX", 1);
         intent.putExtra("aspectY", 1);
-        //裁剪图片分辨率
-        intent.putExtra("outputX", 320);
-        intent.putExtra("outputY", 320);
-//        uritempFile=uri;
-//        intent.putExtra(MediaStore.EXTRA_OUTPUT, uritempFile);
-//        intent.putExtra("outputFormat", Bitmap.CompressFormat.JPEG.toString());
-//        intent.putExtra("noFaceDetection", false); // no face detection
-//intent.putExtra("outputFormat", Bitmap.CompressFormat.JPEG.toString());
 
-        //发送数据
-        intent.putExtra("return-data", true);
+        //输出的宽高
+        intent.putExtra("outputX", 300);
+        intent.putExtra("outputY", 300);
+        intent.putExtra("return-data", false);
+        intent.putExtra(MediaStore.EXTRA_OUTPUT, imageUri);
+        intent.putExtra("outputFormat", Bitmap.CompressFormat.JPEG.toString());
+        intent.putExtra("noFaceDetection", true); // no face detection
         startActivityForResult(intent, RESULT_REQUEST_CODE);
     }
 
-    private void setImageToView(Intent data) {
-        Bundle bundle = data.getExtras();
-        if (bundle != null) {
-            Bitmap bitmap = bundle.getParcelable("data");
-            profile_image.setImageBitmap(bitmap);
-            //没存储到share里，会出现几个模块切换的时候，再回到个人信息模块，个人头像不变。
-            UtilTools.putImageToShare(getActivity(), profile_image);
+
+    private void setImageToView() {
+        try {
+            bitmap = BitmapFactory.decodeStream(getContext().getContentResolver().openInputStream(imageUri));
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
         }
+        profile_image.setImageBitmap(bitmap);
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                UtilTools.putImageToShare(getContext(), bitmap);
+                handler.sendEmptyMessage(1);
+            }
+        }).start();
     }
 
-    @Override
-    public void onDestroy() {
-        super.onDestroy();
-        //保存图片到ShareUtil
-        UtilTools.putImageToShare(getActivity(), profile_image);
-//        //保存
-//        BitmapDrawable drawable = (BitmapDrawable) profile_image.getDrawable();
-//        Bitmap bitmap = drawable.getBitmap();
-//        //第一步：将bitmap压缩成字节数组输出流
-//        ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
-//        bitmap.compress(Bitmap.CompressFormat.PNG, 80, byteArrayOutputStream);
-//        //第二步：利用base64将我们的字节数组输出流转换成String
-//        byte[] bytes = byteArrayOutputStream.toByteArray();
-//        String imgString = new String(Base64.encodeToString(bytes, Base64.DEFAULT));
-//        //第三步：将string保存在shareUtils
-//        ShareUtil.putString(getActivity(), "image_title", imgString);
-    }
 
     //Android6.0动态权限添加
     private List<String> permissionList;

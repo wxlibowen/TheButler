@@ -75,6 +75,7 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
 
 
 
+
         initData();
         //toolbar初始化
         initToolbar();

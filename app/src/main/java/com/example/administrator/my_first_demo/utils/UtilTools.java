@@ -25,7 +25,7 @@ import java.io.ByteArrayOutputStream;
         textView.setTypeface(font_type);
 
     }
-    //保存图片到shareUtil
+    //从ImageView中去除图片到保存到shareUtil
     public static void putImageToShare(Context context,ImageView imageView){
         //保存
         BitmapDrawable drawable = (BitmapDrawable) imageView.getDrawable();
@@ -33,6 +33,18 @@ import java.io.ByteArrayOutputStream;
         //第一步：将bitmap压缩成字节数组输出流
         ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
         bitmap.compress(Bitmap.CompressFormat.PNG, 80, byteArrayOutputStream);
+        //第二步：利用base64将我们的字节数组输出流转换成String
+        byte[] bytes = byteArrayOutputStream.toByteArray();
+        String imgString = new String(Base64.encodeToString(bytes, Base64.DEFAULT));
+        //第三步：将string保存在shareUtils
+        ShareUtil.putString(context, "image_title", imgString);
+    }
+    //保存Bitmap图片到shareUtil
+    public static void putImageToShare(Context context,Bitmap imageBitmap){
+        //保存
+        //第一步：将bitmap压缩成字节数组输出流
+        ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
+        imageBitmap.compress(Bitmap.CompressFormat.PNG, 80, byteArrayOutputStream);
         //第二步：利用base64将我们的字节数组输出流转换成String
         byte[] bytes = byteArrayOutputStream.toByteArray();
         String imgString = new String(Base64.encodeToString(bytes, Base64.DEFAULT));

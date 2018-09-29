@@ -51,7 +51,7 @@
 
 
     <application
-
+        android:screenOrientation="portrait"
         android:name=".application.BaseApplication"
         android:allowBackup="true"
         android:icon="@drawable/splashlog"
@@ -64,6 +64,7 @@
             android:name="com.baidu.lbsapi.API_KEY"
             android:value="vzmOliLmypAT9VgxfxAF3WQpYyIQdRMn" />
         <activity
+            android:screenOrientation="portrait"
             android:launchMode="singleTask"
             android:name=".ui.SplashActivity"
             android:theme="@android:style/Theme.NoTitleBar.Fullscreen">
@@ -74,90 +75,109 @@
         </activity>
         <!--设置activity-->
         <activity
+            android:screenOrientation="portrait"
             android:launchMode="singleTask"
             android:name=".ui.SettingActivity"
             android:label="@string/text_setting" />
         <!--主页   alt+回车快速在String.xml文件夹生成中文标签-->
         <activity
+            android:screenOrientation="portrait"
             android:launchMode="singleTask"
             android:name=".MainActivity"
             android:label="@string/main_page"
             android:theme="@style/TAppTheme" />
         <!--美女相册-->
         <activity
+
             android:launchMode="singleTask"
             android:name=".ui.GirleActivity" />
         <!--二维码分享-->
         <activity
+            android:screenOrientation="portrait"
             android:launchMode="singleTask"
             android:name=".ui.QrCodeActivity" />
         <!--关于-->
         <activity
+            android:screenOrientation="portrait"
             android:launchMode="singleTask"
             android:name=".ui.AboutActivity" />
         <!--引导页 -->
         <activity
+            android:screenOrientation="portrait"
             android:launchMode="singleTask"
             android:name=".ui.GuideActivity"
             android:theme="@android:style/Theme.NoTitleBar.Fullscreen" />
         <!--登录-->
         <activity
+            android:screenOrientation="portrait"
             android:theme="@style/AppTheme_transparent"
             android:name=".ui.LoginActivity"
             android:label="@string/login"
             android:launchMode="singleTask" />
         <!--注册-->
         <activity
+            android:screenOrientation="portrait"
             android:launchMode="singleTask"
             android:name=".ui.RegisteredEmailActivity"
             android:label="@string/register" />
         <!--忘记密码-->
         <activity
+            android:screenOrientation="portrait"
             android:launchMode="singleTask"
             android:name=".ui.ForgetPasswordActivity"
             android:label="@string/forget_password_label" />
         <!--快递-->
         <activity
+            android:screenOrientation="portrait"
             android:launchMode="singleTask"
             android:name=".ui.CourierActivity"
             android:label="@string/courier" />
         <!--归属地-->
         <activity
+            android:screenOrientation="portrait"
             android:launchMode="singleTask"
             android:name=".ui.PhoneActivity"
             android:label="@string/number" />
         <!--做菜-->
         <activity
+            android:screenOrientation="portrait"
             android:launchMode="singleTask"
             android:name=".ui.MakeVegetableActivity"
             android:label="@string/make_veagetable" />
         <!--新闻页-->
         <activity
+            android:screenOrientation="portrait"
             android:launchMode="singleTask"
             android:name=".ui.WebViewActivity"
             android:label="@string/news" />
         <!--邮箱验证密码-->
         <activity
+            android:screenOrientation="portrait"
             android:launchMode="singleTask"
             android:name=".ui.EmailForgetPassword" />
         <!--版本更新下载-->
         <activity
+            android:screenOrientation="portrait"
             android:launchMode="singleTask"
             android:name=".ui.UpdateActivity" />
         <!--修改个人资料-->
         <activity
+            android:screenOrientation="portrait"
             android:launchMode="singleTask"
             android:name=".ui.EditUserInformation" />
         <!--短信登录-->
         <activity
+            android:screenOrientation="portrait"
             android:launchMode="singleTask"
             android:name=".ui.MobSms" />
         <!--极光推送详情页面 -->
         <activity
+            android:screenOrientation="portrait"
             android:name=".ui.JushpushActivity"
             android:launchMode="singleTask" />
         <!--百度地图-->
         <activity
+            android:screenOrientation="portrait"
             android:launchMode="singleTask"
             android:name=".ui.LocationActivity" />
         <service
@@ -291,7 +311,7 @@
         <!--相机取出图片使用-->
         <provider
             android:name="android.support.v4.content.FileProvider"
-            android:authorities="com.example.administrator.fileporvider"
+            android:authorities="com.example.administrator.provider"
             android:exported="false"
             android:grantUriPermissions="true" >
         <meta-data
