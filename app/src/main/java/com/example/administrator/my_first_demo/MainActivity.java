@@ -212,7 +212,6 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
         mFragment.add(new WeChatFragment());
         mFragment.add(new JoyNewsFragment());
         mFragment.add(new StarnewsFragment());
-//        mFragment.add(new GirlFragment());
         mFragment.add(new UserFragment());
 
     }

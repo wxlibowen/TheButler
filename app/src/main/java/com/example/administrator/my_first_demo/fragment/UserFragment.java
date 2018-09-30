@@ -304,7 +304,6 @@ public class UserFragment extends Fragment implements View.OnClickListener {
         intent.putExtra("scale", true);
         intent.putExtra("aspectX", 1);
         intent.putExtra("aspectY", 1);
-
         //输出的宽高
         intent.putExtra("outputX", 300);
         intent.putExtra("outputY", 300);
@@ -418,8 +417,8 @@ public class UserFragment extends Fragment implements View.OnClickListener {
     @Override
     public void onDestroy() {
         super.onDestroy();
+        //回收handler
         handler.removeCallbacksAndMessages(null);
-
     }
 }
 
