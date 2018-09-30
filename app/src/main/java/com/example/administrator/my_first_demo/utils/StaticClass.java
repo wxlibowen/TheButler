@@ -11,7 +11,7 @@ package com.example.administrator.my_first_demo.utils;
     //判断程序是否是第一次运行
     public static final String SHARE_IS_FIRST = "isFirst";
     //Bugly Key
-    public static final String BUGLY_APPID = "d59bc54971";
+    public static final String BUGLY_APP_ID = "180c6f27e4";
     //bmob key
     public static final String BOMB_APPID = "1635682a7b6b1a77fed0d097c3885566";
     //快递key

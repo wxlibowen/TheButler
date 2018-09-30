@@ -63,6 +63,8 @@ import butterknife.OnClick;
     private void initView() {
         et_name = findViewById(R.id.et_name);
         et_number = findViewById(R.id.et_number);
+
+
         recyclerView = findViewById(R.id.mRecyclerView);
         btn_get_courier = findViewById(R.id.btn_get_courier);
         btn_get_courier.setOnClickListener(this);

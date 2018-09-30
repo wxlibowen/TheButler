@@ -4,11 +4,14 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:padding="10dp"
-    android:background="@drawable/user_frgament_bg">
+    android:background="@drawable/express">
 <RelativeLayout
+    android:focusable="true"
+    android:focusableInTouchMode="true"
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
     <EditText
+        android:maxLines="1"
         android:id="@+id/et_name"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -25,15 +28,21 @@
         android:background="@drawable/delet_all" />
 </RelativeLayout>
     <RelativeLayout
+        android:focusable="true"
+        android:focusableInTouchMode="true"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
     <EditText
+        android:inputType="number"
+        android:maxLines="1"
         android:id="@+id/et_number"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="@string/text_courier_number"
         android:text="416688878066" />
     <ImageView
+
+
         android:id="@+id/delete_number"
         android:layout_width="20dp"
         android:layout_height="20dp"

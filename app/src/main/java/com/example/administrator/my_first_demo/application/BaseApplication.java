@@ -80,7 +80,7 @@ public class BaseApplication extends MultiDexApplication {
         refWatcher = setupLeakCanary();
 
         //初始化Bugly
-        CrashReport.initCrashReport(getApplicationContext(), StaticClass.BUGLY_APPID, true);
+        CrashReport.initCrashReport(getApplicationContext(), StaticClass.BUGLY_APP_ID, true);
         //初始化Bmob
         //第一：默认初始化
         Bmob.initialize(this, StaticClass.BOMB_APPID);

@@ -45,6 +45,7 @@ import com.example.administrator.my_first_demo.view.CustomDialog;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.lang.ref.WeakReference;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -87,18 +88,7 @@ public class UserFragment extends Fragment implements View.OnClickListener {
     private Uri imageUri;
     private File outputImage;
     private Bitmap bitmap;//用户头像
-    private Handler handler = new Handler() {
-        @Override
-        public void handleMessage(Message msg) {
-            super.handleMessage(msg);
-            switch (msg.what) {
-                case 1:
-                    CallbackManager.doCallback();
-                    break;
-            }
-
-        }
-    };
+    private MyHandler handler = new MyHandler();
 
 
     @Nullable
@@ -208,7 +198,7 @@ public class UserFragment extends Fragment implements View.OnClickListener {
                 break;
             //快递查询
             case R.id.tv_courier:
-                startActivity(new Intent(getActivity(), CourierActivity.class));
+                startActivity(new Intent(getContext(), CourierActivity.class));
                 break;
             //归属地查询
             case R.id.tv_phone:
@@ -276,7 +266,6 @@ public class UserFragment extends Fragment implements View.OnClickListener {
                 case IMAGE_REQUEST_CODE:
                     if (data != null) {
                         startPhotoZoom(data.getData());
-//                        handlerImage(data);
                     }
                     break;
                 //相机返回数据
@@ -414,5 +403,23 @@ public class UserFragment extends Fragment implements View.OnClickListener {
 
     }
 
+    class MyHandler extends Handler {
+        @Override
+        public void handleMessage(Message msg) {
+            super.handleMessage(msg);
+                switch (msg.what) {
+                    case 1:
+                        CallbackManager.doCallback();
+                        break;
+                }
+        }
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        handler.removeCallbacksAndMessages(null);
+
+    }
 }
 

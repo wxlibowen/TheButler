@@ -51,6 +51,7 @@
 
 
     <application
+
         android:screenOrientation="portrait"
         android:name=".application.BaseApplication"
         android:allowBackup="true"
@@ -128,6 +129,7 @@
             android:label="@string/forget_password_label" />
         <!--快递-->
         <activity
+            android:windowSoftInputMode="adjustPan"
             android:screenOrientation="portrait"
             android:launchMode="singleTask"
             android:name=".ui.CourierActivity"
@@ -307,7 +309,6 @@
         <meta-data
             android:name="JPUSH_APPKEY"
             android:value="4e97e953a5004d86f79b6724" />
-
         <!--相机取出图片使用-->
         <provider
             android:name="android.support.v4.content.FileProvider"

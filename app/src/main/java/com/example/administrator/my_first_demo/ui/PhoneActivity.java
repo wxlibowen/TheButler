@@ -1,7 +1,10 @@
 package com.example.administrator.my_first_demo.ui;
 
+import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.text.InputFilter;
+import android.text.InputType;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
@@ -68,6 +71,10 @@ import butterknife.OnClick;
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_phone);
         ButterKnife.bind(this);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            etNumber.setShowSoftInputOnFocus(false);
+        }
+
         btnDel.setOnLongClickListener(new View.OnLongClickListener() {
             @Override
             public boolean onLongClick(View v) {
@@ -86,7 +93,9 @@ import butterknife.OnClick;
         4、解析json
         5、结果显示
          */
-        String str = etNumber.getText().toString().trim();
+
+        StringBuilder sb = new StringBuilder(etNumber.getText());
+        int current = etNumber.getSelectionStart();
         switch (view.getId()) {
             case R.id.btn_1:
             case R.id.btn_2:
@@ -98,27 +107,32 @@ import butterknife.OnClick;
             case R.id.btn_7:
             case R.id.btn_8:
             case R.id.btn_9:
+                if (sb.length() >= 11) return;
                 if (flag) {
                     flag = false;
-                    str = "";
+                    sb = null;
                     etNumber.setText("");
                 }
+                sb.insert(current, ((Button) view).getText());
+                etNumber.setText(sb.toString());
+                etNumber.setSelection(current + 1);
                 //每次结尾添加1个
-                etNumber.setText(str + ((Button) view).getText());
+//                etNumber.setText(str + ((Button) view).getText());
                 //移动光标
-                etNumber.setSelection(str.length() + 1);
+//                etNumber.setSelection(str.length() + 1);
                 break;
             //获取归属地
             case R.id.btn_query:
-                    getPhone(str);
+                getPhone(sb.toString());
                 break;
             //删除
             case R.id.btn_del:
-                if (!TextUtils.isEmpty(str) && str.length() > 0) {
-                    //每次结果减一个  123 0-1 12
-                    etNumber.setText(str.substring(0, str.length() - 1));
-                    //移动光标,让你看起来删除掉了
-                    etNumber.setSelection(str.length() - 1);
+                if (current == 0) return;
+                if (!TextUtils.isEmpty(sb) && sb.length() > 0) {
+                    sb.deleteCharAt(current - 1);
+                    etNumber.setText(sb.toString());
+                    etNumber.setSelection(current - 1);
+
                 }
                 break;
         }
@@ -136,10 +150,10 @@ import butterknife.OnClick;
                     parsingJson(t);
                 }
             });
-        }else if(str == null || str.isEmpty()){
-            Toast.makeText(PhoneActivity.this, "您没有输入内容" , Toast.LENGTH_SHORT).show();
+        } else if (str == null || str.isEmpty()) {
+            Toast.makeText(PhoneActivity.this, "您没有输入内容", Toast.LENGTH_SHORT).show();
         } else {
-            Toast.makeText(PhoneActivity.this, "您输入的电话号码有问题" , Toast.LENGTH_SHORT).show();
+            Toast.makeText(PhoneActivity.this, "您输入的电话号码有问题", Toast.LENGTH_SHORT).show();
         }
     }
 
