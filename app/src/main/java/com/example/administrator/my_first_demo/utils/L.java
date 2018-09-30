@@ -11,7 +11,7 @@ import android.util.Log;
      //开关
     public static boolean DEBUG =true;
     //TAG
-    public static final String TAG ="smartbutler";
+    public static final String TAG ="SmartButler:";
     //五个等级
     public static void d (String text){
         Log.d(TAG,text);
