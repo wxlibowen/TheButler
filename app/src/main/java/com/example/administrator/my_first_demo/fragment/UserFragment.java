@@ -83,12 +83,14 @@ public class UserFragment extends Fragment implements View.OnClickListener {
 
 
     //相机拍摄取图相关
-    public static final int TAKE_PHOTO = 1;
-    public final String PHOTO_NAME = "output_image.jpg";
-    private Uri imageUri;
-    private File outputImage;
+    public final String PHOTO_NAME = "output_image.jpg";//缓存头像的文件名
+    private Uri imageUri=null;//头像uri
     private Bitmap bitmap;//用户头像
-    private MyHandler handler = new MyHandler();
+    private MyHandler handler = new MyHandler();//用来处理接口回调
+    public static final int CAMERA_REQUEST_CODE = 100;//相机返回值
+    public static final int IMAGE_REQUEST_CODE = 101;//相册换绘制
+    public static final int RESULT_REQUEST_CODE = 102;//剪切返回值
+    private static final int PEMISSIN_CAMARA = 103;//权限返回值
 
 
     @Nullable
@@ -219,12 +221,7 @@ public class UserFragment extends Fragment implements View.OnClickListener {
         }
     }
 
-    public static final String PHOTO_IMAGE_FILE_NAME = "fileImg.jpg";
-    public static final int CAMERA_REQUEST_CODE = 100;
-    public static final int IMAGE_REQUEST_CODE = 101;
-    public static final int RESULT_REQUEST_CODE = 102;
-    private static final int PEMISSIN_CAMARA = 103;
-    private File tempFile = null;
+
 
     //相册
     private void toPicture() {
@@ -237,7 +234,8 @@ public class UserFragment extends Fragment implements View.OnClickListener {
 
     //相机
     private void toCamera() {
-        outputImage = new File(getContext().getExternalCacheDir(), PHOTO_NAME);
+        //讲头像缓存为文件
+        File outputImage = new File(getContext().getExternalCacheDir(), PHOTO_NAME);
         try {
             if (outputImage.exists()) {
                 outputImage.delete();
