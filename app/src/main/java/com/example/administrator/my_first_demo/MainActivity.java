@@ -13,7 +13,6 @@ import android.support.design.widget.Snackbar;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentPagerAdapter;
-import android.support.v4.view.GravityCompat;
 import android.support.v4.view.ViewPager;
 import android.os.Bundle;
 import android.support.v4.widget.DrawerLayout;
@@ -28,14 +27,13 @@ import com.example.administrator.my_first_demo.fragment.StarnewsFragment;
 import com.example.administrator.my_first_demo.fragment.UserFragment;
 import com.example.administrator.my_first_demo.fragment.WeChatFragment;
 import com.example.administrator.my_first_demo.ui.AboutActivity;
-import com.example.administrator.my_first_demo.ui.BaseActivity;
+import com.example.administrator.my_first_demo.base.BaseActivity;
 import com.example.administrator.my_first_demo.ui.GirleActivity;
 import com.example.administrator.my_first_demo.ui.LocationActivity;
 import com.example.administrator.my_first_demo.ui.QrCodeActivity;
 import com.example.administrator.my_first_demo.ui.UpdateActivity;
 import com.example.administrator.my_first_demo.utils.L;
 import com.example.administrator.my_first_demo.utils.StaticClass;
-import com.example.administrator.my_first_demo.utils.UtilTools;
 import com.kymjs.rxvolley.RxVolley;
 import com.kymjs.rxvolley.client.HttpCallback;
 import com.xys.libzxing.zxing.activity.CaptureActivity;
@@ -45,8 +43,6 @@ import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.List;
-
-import de.hdodenhof.circleimageview.CircleImageView;
 
 public class MainActivity extends BaseActivity implements NavigationView.OnNavigationItemSelectedListener {
     //TabLayout
@@ -62,8 +58,8 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
     private int versioncode;
     private String url;
     //退出app
-    private boolean canExit=false;
-    private Handler handler=new Handler();
+    private boolean canExit = false;
+    private Handler handler = new Handler();
 
     //    //悬浮窗
 //    private FloatingActionButton floatingActionButton;
@@ -77,16 +73,11 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
-
-
-
         initData();
         //toolbar初始化
         initToolbar();
         //初始化
         initView();
-
 
         //内存泄漏测试方法
 //        LeakThread leakThread = new LeakThread();
@@ -314,20 +305,21 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
 
     @Override
     public void onBackPressed() {
-        if (!canExit){
-            canExit=true;
-            Snackbar.make(drawerLayout," 再次点击退出",2000).show();
-            handler.postDelayed(runnable,2000);//两秒后不允许退出
-        }else {
+        if (!canExit) {
+            canExit = true;
+            Snackbar.make(drawerLayout, " 再次点击退出", 2000).show();
+            handler.postDelayed(runnable, 2000);//两秒后不允许退出
+        } else {
             super.onBackPressed();
         }
-  
+
 
     }
-    private Runnable runnable=new Runnable() {
+
+    private Runnable runnable = new Runnable() {
         @Override
         public void run() {
-            canExit=false;
+            canExit = false;
         }
     };
 

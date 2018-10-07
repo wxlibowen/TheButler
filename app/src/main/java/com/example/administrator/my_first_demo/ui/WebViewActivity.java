@@ -3,16 +3,15 @@ package com.example.administrator.my_first_demo.ui;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.v4.view.ViewPager;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.ViewParent;
 import android.webkit.WebChromeClient;
 import android.webkit.WebView;
-import android.webkit.WebViewClient;
 import android.widget.ProgressBar;
 
 import com.example.administrator.my_first_demo.R;
+import com.example.administrator.my_first_demo.base.BaseActivity;
 
 /*
  *项目名：com.example.administrator.my_first_demo.ui

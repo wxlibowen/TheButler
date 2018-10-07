@@ -9,32 +9,25 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
-import android.widget.ListView;
 import android.widget.Toast;
 
 import com.example.administrator.my_first_demo.R;
 
 import com.example.administrator.my_first_demo.adapter.CourierAdapterRecycler;
+import com.example.administrator.my_first_demo.base.BaseActivity;
 import com.example.administrator.my_first_demo.entity.CourierData;
 import com.example.administrator.my_first_demo.utils.L;
 import com.example.administrator.my_first_demo.utils.StaticClass;
-import com.google.gson.JsonObject;
 import com.kymjs.rxvolley.RxVolley;
 import com.kymjs.rxvolley.client.HttpCallback;
-import com.kymjs.rxvolley.http.VolleyError;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
-
-import butterknife.BindView;
-import butterknife.ButterKnife;
-import butterknife.OnClick;
 
 /*
  *项目名：com.example.administrator.my_first_demo.ui

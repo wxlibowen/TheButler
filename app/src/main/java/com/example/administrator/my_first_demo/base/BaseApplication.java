@@ -1,6 +1,6 @@
-package com.example.administrator.my_first_demo.application;
+package com.example.administrator.my_first_demo.base;
 
-import android.app.Application;
+import android.app.Activity;
 import android.content.Context;
 import android.support.multidex.MultiDex;
 import android.support.multidex.MultiDexApplication;
@@ -14,31 +14,15 @@ import com.squareup.leakcanary.LeakCanary;
 
 import com.squareup.leakcanary.RefWatcher;
 import com.tencent.bugly.crashreport.CrashReport;
-import com.zhy.http.okhttp.OkHttpUtils;
-import com.zhy.http.okhttp.https.HttpsUtils;
 
 
-import java.io.IOException;
-import java.io.InputStream;
-import java.security.KeyManagementException;
-import java.security.KeyStore;
-import java.security.KeyStoreException;
-import java.security.NoSuchAlgorithmException;
-import java.security.SecureRandom;
-import java.security.cert.CertificateException;
-import java.security.cert.CertificateFactory;
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
-import java.util.concurrent.TimeUnit;
-
-import javax.net.ssl.HostnameVerifier;
-import javax.net.ssl.SSLContext;
-import javax.net.ssl.SSLSession;
-import javax.net.ssl.TrustManagerFactory;
 
 import cn.bmob.v3.Bmob;
 import cn.jpush.android.api.JPushInterface;
-import okhttp3.OkHttpClient;
 
 
 /*
@@ -51,6 +35,8 @@ public class BaseApplication extends MultiDexApplication {
     private RefWatcher refWatcher;
     //全局上下文
     private static Context context;
+    //一次退出所有Activity
+    private static List<Activity> mList=new ArrayList<>();
 
 
     @Override
@@ -104,6 +90,13 @@ public class BaseApplication extends MultiDexApplication {
     public static Context getContext(){
         return context;
     }
-
+    public static void addActivity(Activity activity){
+            mList.add(activity);
+    }
+    public static void removeAllActivity(){
+        for (Activity activity : mList){
+            activity.finish();
+        }
+    }
 
 }

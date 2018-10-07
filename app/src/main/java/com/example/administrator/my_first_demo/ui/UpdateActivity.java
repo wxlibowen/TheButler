@@ -10,6 +10,7 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.example.administrator.my_first_demo.R;
+import com.example.administrator.my_first_demo.base.BaseActivity;
 import com.example.administrator.my_first_demo.utils.L;
 import com.kymjs.rxvolley.RxVolley;
 import com.kymjs.rxvolley.client.HttpCallback;

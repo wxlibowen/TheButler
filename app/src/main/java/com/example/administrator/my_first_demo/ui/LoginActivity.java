@@ -1,7 +1,5 @@
 package com.example.administrator.my_first_demo.ui;
 import android.content.Intent;
-import android.content.res.Resources;
-import android.graphics.drawable.Drawable;
 import android.media.MediaPlayer;
 import android.net.Uri;
 import android.os.Bundle;
@@ -10,8 +8,6 @@ import android.text.TextUtils;
 
 import android.view.Gravity;
 import android.view.View;
-import android.view.Window;
-import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
@@ -19,27 +15,19 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.alibaba.fastjson.JSON;
 import com.example.administrator.my_first_demo.MainActivity;
 import com.example.administrator.my_first_demo.R;
+import com.example.administrator.my_first_demo.base.BaseActivity;
 import com.example.administrator.my_first_demo.entity.MyUser;
-import com.example.administrator.my_first_demo.utils.L;
 import com.example.administrator.my_first_demo.utils.ShareUtil;
 import com.example.administrator.my_first_demo.view.CustomDialog;
 import com.example.administrator.my_first_demo.view.CustomVideoView;
-import com.sina.weibo.sdk.WbSdk;
-import com.sina.weibo.sdk.auth.AuthInfo;
-import com.sina.weibo.sdk.auth.Oauth2AccessToken;
-import com.sina.weibo.sdk.auth.WbConnectErrorMessage;
-import com.sina.weibo.sdk.auth.sso.SsoHandler;
 import com.tencent.connect.UserInfo;
 import com.tencent.connect.auth.QQToken;
 import com.tencent.connect.common.Constants;
 import com.tencent.tauth.IUiListener;
 import com.tencent.tauth.Tencent;
 import com.tencent.tauth.UiError;
-import com.zhy.http.okhttp.OkHttpUtils;
-import com.zhy.http.okhttp.callback.StringCallback;
 
 
 import org.json.JSONException;

@@ -8,16 +8,12 @@ package com.example.administrator.my_first_demo.ui;
 
 
 import android.content.Context;
-import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
-import android.widget.AdapterView;
-import android.widget.GridView;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 
@@ -25,13 +21,9 @@ import com.bumptech.glide.Glide;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.example.administrator.my_first_demo.R;
 import com.example.administrator.my_first_demo.adapter.GirlAdapter;
-import com.example.administrator.my_first_demo.adapter.GirlAdapterRecycler;
-import com.example.administrator.my_first_demo.adapter.WeChatAdapter;
+import com.example.administrator.my_first_demo.base.BaseActivity;
 import com.example.administrator.my_first_demo.entity.GirlData;
-import com.example.administrator.my_first_demo.utils.L;
 import com.example.administrator.my_first_demo.view.CustomDialog;
-import com.kymjs.rxvolley.RxVolley;
-import com.kymjs.rxvolley.client.HttpCallback;
 import com.squareup.picasso.Picasso;
 import com.youth.banner.Banner;
 import com.youth.banner.BannerConfig;

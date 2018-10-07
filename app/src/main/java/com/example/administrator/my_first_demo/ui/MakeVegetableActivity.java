@@ -11,6 +11,7 @@ import android.widget.Toast;
 
 import com.example.administrator.my_first_demo.R;
 import com.example.administrator.my_first_demo.adapter.MakeVegetableAdapter;
+import com.example.administrator.my_first_demo.base.BaseActivity;
 import com.example.administrator.my_first_demo.entity.MakeVegetableData;
 import com.example.administrator.my_first_demo.utils.L;
 import com.example.administrator.my_first_demo.utils.StaticClass;

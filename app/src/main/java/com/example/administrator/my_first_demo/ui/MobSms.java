@@ -13,7 +13,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
-import android.support.annotation.Nullable;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
@@ -23,6 +22,7 @@ import android.widget.Toast;
 
 import com.example.administrator.my_first_demo.MainActivity;
 import com.example.administrator.my_first_demo.R;
+import com.example.administrator.my_first_demo.base.BaseActivity;
 
 import org.json.JSONObject;
 

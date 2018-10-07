@@ -5,6 +5,7 @@ import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.widget.ImageView;
 import com.example.administrator.my_first_demo.R;
+import com.example.administrator.my_first_demo.base.BaseActivity;
 import com.xys.libzxing.zxing.encoding.EncodingUtils;
 
 /*

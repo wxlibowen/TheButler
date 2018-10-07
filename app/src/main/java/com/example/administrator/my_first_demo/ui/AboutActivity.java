@@ -8,11 +8,11 @@ package com.example.administrator.my_first_demo.ui;
 
 
 import android.os.Bundle;
-import android.support.annotation.Nullable;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
 import com.example.administrator.my_first_demo.R;
+import com.example.administrator.my_first_demo.base.BaseActivity;
 import com.example.administrator.my_first_demo.utils.UtilTools;
 
 import java.util.ArrayList;

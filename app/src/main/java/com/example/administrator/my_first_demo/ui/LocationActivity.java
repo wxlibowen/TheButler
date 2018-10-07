@@ -6,7 +6,6 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
-import android.util.Log;
 import android.widget.Toast;
 
 import com.baidu.location.BDLocation;
@@ -25,13 +24,11 @@ import com.baidu.mapapi.map.MarkerOptions;
 import com.baidu.mapapi.map.OverlayOptions;
 import com.baidu.mapapi.model.LatLng;
 import com.example.administrator.my_first_demo.R;
+import com.example.administrator.my_first_demo.base.BaseActivity;
 import com.example.administrator.my_first_demo.utils.L;
 
 import java.util.ArrayList;
 import java.util.List;
-
-import cn.bmob.v3.BmobSMS;
-import cn.bmob.v3.listener.QueryListener;
 
 
 /*

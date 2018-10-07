@@ -3,8 +3,6 @@ package com.example.administrator.my_first_demo.ui;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.text.InputFilter;
-import android.text.InputType;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
@@ -14,12 +12,11 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.administrator.my_first_demo.R;
+import com.example.administrator.my_first_demo.base.BaseActivity;
 import com.example.administrator.my_first_demo.utils.StaticClass;
 import com.kymjs.rxvolley.RxVolley;
 import com.kymjs.rxvolley.client.HttpCallback;
-import com.kymjs.rxvolley.http.VolleyError;
 
-import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 

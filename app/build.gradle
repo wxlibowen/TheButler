@@ -1,4 +1,4 @@
-apply plugin: 'com.android.application'
+  apply plugin: 'com.android.application'
 //mob短信验证
 apply plugin: 'com.mob.sdk'
 android {
