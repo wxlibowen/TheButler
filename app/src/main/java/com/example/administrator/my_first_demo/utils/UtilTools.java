@@ -1,6 +1,7 @@
 package com.example.administrator.my_first_demo.utils;
 
 import android.content.Context;
+import android.content.Intent;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;

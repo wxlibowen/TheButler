@@ -1,5 +1,6 @@
 package com.example.administrator.my_first_demo.ui;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
@@ -28,4 +29,15 @@ public class BaseActivity extends AppCompatActivity {
 //        }
 //        return super.onOptionsItemSelected(item);
 //    }
+    public  void startToActivity(Class clazz,boolean needToClose){
+           startActivity(new Intent(this,clazz));
+           if (needToClose){
+               finish();
+           }
+    }
+    public  void startToActivity(Class clazz){
+        startActivity(new Intent(this,clazz));
+    }
+
+
 }

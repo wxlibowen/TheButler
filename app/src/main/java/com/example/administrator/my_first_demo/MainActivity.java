@@ -5,9 +5,11 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
+import android.os.Handler;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.design.widget.NavigationView;
+import android.support.design.widget.Snackbar;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentPagerAdapter;
@@ -59,6 +61,9 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
     private String versionName;
     private int versioncode;
     private String url;
+    //退出app
+    private boolean canExit=false;
+    private Handler handler=new Handler();
 
     //    //悬浮窗
 //    private FloatingActionButton floatingActionButton;
@@ -216,14 +221,6 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
 
     }
 
-//    @Override
-//    public boolean onOptionsItemSelected(MenuItem item) {
-//        if (item.getItemId() == android.R.id.home) {
-//            drawerLayout.openDrawer(GravityCompat.START);
-//            return true;
-//        }
-//        return super.onOptionsItemSelected(item);
-//    }
 
     //侧滑界面点击
     @Override
@@ -232,7 +229,7 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
         switch (item.getItemId()) {
             //美女
             case R.id.voice_switch:
-                startActivity(new Intent(this, GirleActivity.class));
+                startToActivity(GirleActivity.class);
                 break;
             case R.id.version:
                 /**
@@ -251,10 +248,10 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
                 });
                 break;
             case R.id.location:
-                startActivity(new Intent(MainActivity.this, LocationActivity.class));
+                startToActivity(LocationActivity.class);
                 break;
             case R.id.about:
-                startActivity(new Intent(this, AboutActivity.class));
+                startToActivity(AboutActivity.class);
                 break;
             case R.id.scan:
                 //打开扫描界面扫描条形码或二维码
@@ -262,7 +259,7 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
                 startActivityForResult(openCameraIntent, 0);
                 break;
             case R.id.code:
-                startActivity(new Intent(this,QrCodeActivity.class));
+                startToActivity(QrCodeActivity.class);
                 break;
         }
         return true;
@@ -315,5 +312,28 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
         }).show();
     }
 
+    @Override
+    public void onBackPressed() {
+        if (!canExit){
+            canExit=true;
+            Snackbar.make(drawerLayout," 再次点击退出",2000).show();
+            handler.postDelayed(runnable,2000);//两秒后不允许退出
+        }else {
+            super.onBackPressed();
+        }
+  
 
+    }
+    private Runnable runnable=new Runnable() {
+        @Override
+        public void run() {
+            canExit=false;
+        }
+    };
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        handler.removeCallbacksAndMessages(null);
+    }
 }
