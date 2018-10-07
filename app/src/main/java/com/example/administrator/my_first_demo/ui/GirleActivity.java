@@ -2,7 +2,7 @@ package com.example.administrator.my_first_demo.ui;
 /*
  *项目名：com.example.administrator.my_first_demo.ui
  *创建者： LJW
- *创建时间：2018/8/1 0001
+ *创建时间：2018/8/1
  *描述：
  */
 
